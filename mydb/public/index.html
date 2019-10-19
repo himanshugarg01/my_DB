@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyDB</title>
+  
+    <style>
+    
+
+.head{
+margin: 2rem;
+padding: 1rem;
+background-color: black;
+color: whitesmoke;
+text-align: center;
+}
+.main{
+    background-color: cadetblue;
+    padding: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+}
+.output{
+height: 20rem;
+width: 100%;
+resize: vertical;
+border-radius: 25px;
+}
+.input{
+    width: 50%;
+    padding: 0.5rem;
+    border-radius: 15px;
+   
+}
+.input:hover{
+    border-color: red; 
+}
+.btn{
+    padding: 0.5rem;
+    background-color: burlywood;
+    width: 5rem;
+    border-radius: 15px;
+}
+</style>
+</head>
+<body style="background-color: darkgrey">
+    <header class="head">
+        <h1>Me_Database</h1>
+    </header>
+    <main class="main">
+        <div class="query">
+            <input type="text" placeholder="Enter query here.." class="input" id="query">
+            &nbsp;
+            &nbsp;
+            <button class="btn" id="run" onclick="runQuery(event)">Run</button>
+            <br><br><br><br><br><br><br><br><br>
+            <textarea class="output" id="output"></textarea>
+        </div>
+        <div class="output"></div>
+    </main>
+<script src="select.js"></script>
+<script src="insert.js"></script>
+<script src="create.js"></script>
+<script src="indexing.js"></script>
+    <script>
+      var query=document.getElementById("query");
+
+      function runQuery(event)
+      {
+        console.log(query.value);
+        var que=query.value.split(" ");
+        if(que[0]=="create")
+        {
+          if(que[1]=="table")
+        verifyCreate(que);
+        else{
+          indexQuery(query,que);
+        }
+        }
+        else if(que[0]=="insert")
+        {
+          for(let i=0;i<query.value.length;i++)
+          {
+            if(query.value[i]==' ')
+            {
+              verifyInsert(query.value.substring(i+1,query.value.length),que);
+              break;
+            }
+          }
+         
+        }
+        else if(que[0]=="select")
+        {
+          for(let i=0;i<query.value.length;i++)
+          {
+            if(query.value[i]==' ')
+            {
+              selectCommand(query.value.substring(i+1,query.value.length),que);
+              break;
+            }
+          }
+        }
+        else{
+         // selectCommand(query.value); 
+        console.log("query not found");
+        }
+
+      }
+
+    
+      
+     
+    </script>
+</body>
+</html>
+
